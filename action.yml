@@ -1,0 +1,13 @@
+name: "LGTMoon on GitHub Issue and Pull request"
+description: "Post LGTM image on GitHub Issue and Pull request using LGTMoon."
+branding:
+  icon: moon
+  color: gray-dark
+inputs:
+  github-token:
+    description: The GitHub token used to create an authenticated client
+    default: ${{ github.token }}
+    required: true
+runs:
+  using: "node12"
+  main: "dist/index.js"
