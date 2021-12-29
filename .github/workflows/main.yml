@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: LGTM
-        uses: Doarakko/test@main
+        uses: Doarakko/action-lgtmoon@main
         if: >-
           contains(github.event.comment.body, 'lgtm')
           || contains(github.event.review.body, 'lgtm')
