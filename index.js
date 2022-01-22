@@ -2,11 +2,36 @@ import fetch from "node-fetch";
 import { getInput, setFailed } from "@actions/core";
 import { context } from "@actions/github";
 import { Octokit } from "@octokit/core";
+import * as core from "@actions/core";
 
 async function run() {
   try {
     const githubToken = getInput("github-token");
     const octokit = new Octokit({ auth: githubToken });
+
+    switch (context.eventName) {
+      case "issue_comment":
+        if(!(context.payload.comment.body || '').match(/lgtm/)){
+          core.debug("nothing to do.");
+          return;
+        }
+        break;
+      case "pull_request_review":
+        if(!(context.payload.review.body || '').match(/lgtm/) && context.payload.review.state !== "approved"){
+          core.debug("nothing to do.");
+          return;
+        }
+        break;
+      case "pull_request_review_comment":
+        if(!(context.payload.comment.body || '').match(/lgtm/)){
+          core.debug("nothing to do.");
+          return;
+        }
+        break;
+      default:
+        core.debug("nothing to do.");
+        return;
+    }
 
     fetch("https://lgtmoon.herokuapp.com/api/images/random")
       .then((response) => {

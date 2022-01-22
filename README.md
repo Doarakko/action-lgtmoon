@@ -28,9 +28,6 @@ jobs:
     steps:
       - name: LGTM
         uses: Doarakko/action-lgtmoon/@main
-        if: >-
-          contains(github.event.comment.body, 'lgtm')
-          || contains(github.event.review.body, 'lgtm')
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
 ```
