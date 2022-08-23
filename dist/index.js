@@ -22,60 +22,60 @@ __nccwpck_require__.r(__webpack_exports__);
 
 async function run() {
   try {
-    const githubToken = (0,_actions_core__WEBPACK_IMPORTED_MODULE_1__.getInput)("github-token");
+    const githubToken = (0,_actions_core__WEBPACK_IMPORTED_MODULE_1__.getInput)('github-token');
     const octokit = new _octokit_core__WEBPACK_IMPORTED_MODULE_3__.Octokit({ auth: githubToken });
 
+    if (!(_actions_github__WEBPACK_IMPORTED_MODULE_2__.context.payload.comment.body || '').match(/lgtm/)) {
+      _actions_core__WEBPACK_IMPORTED_MODULE_1__.debug('nothing to do.');
+      return;
+    }
+
     switch (_actions_github__WEBPACK_IMPORTED_MODULE_2__.context.eventName) {
-      case "issue_comment":
-        if(!(_actions_github__WEBPACK_IMPORTED_MODULE_2__.context.payload.comment.body || '').match(/lgtm/)){
-          _actions_core__WEBPACK_IMPORTED_MODULE_1__.debug("nothing to do.");
+      case 'issue_comment':
+        break;
+      case 'pull_request_review':
+        if (_actions_github__WEBPACK_IMPORTED_MODULE_2__.context.payload.review.state !== 'approved') {
+          _actions_core__WEBPACK_IMPORTED_MODULE_1__.debug('nothing to do.');
           return;
         }
         break;
-      case "pull_request_review":
-        if(!(_actions_github__WEBPACK_IMPORTED_MODULE_2__.context.payload.review.body || '').match(/lgtm/) && _actions_github__WEBPACK_IMPORTED_MODULE_2__.context.payload.review.state !== "approved"){
-          _actions_core__WEBPACK_IMPORTED_MODULE_1__.debug("nothing to do.");
-          return;
-        }
-        break;
-      case "pull_request_review_comment":
-        if(!(_actions_github__WEBPACK_IMPORTED_MODULE_2__.context.payload.comment.body || '').match(/lgtm/)){
-          _actions_core__WEBPACK_IMPORTED_MODULE_1__.debug("nothing to do.");
-          return;
-        }
+      case 'pull_request_review_comment':
         break;
       default:
-        _actions_core__WEBPACK_IMPORTED_MODULE_1__.debug("nothing to do.");
+        _actions_core__WEBPACK_IMPORTED_MODULE_1__.debug('nothing to do.');
         return;
     }
 
-    node_fetch__WEBPACK_IMPORTED_MODULE_0___default()("https://lgtmoon.herokuapp.com/api/images/random")
-      .then((response) => {
+    node_fetch__WEBPACK_IMPORTED_MODULE_0___default()('https://lgtmoon.herokuapp.com/api/images/random')
+      .then(response => {
         return response.json();
       })
-      .then((data) => {
+      .then(data => {
         const imageUrl = data.images[0].url;
 
-        if (_actions_github__WEBPACK_IMPORTED_MODULE_2__.context.eventName === "issue_comment" || _actions_github__WEBPACK_IMPORTED_MODULE_2__.context.eventName === "pull_request_review") {
+        if (
+          _actions_github__WEBPACK_IMPORTED_MODULE_2__.context.eventName === 'issue_comment' ||
+          _actions_github__WEBPACK_IMPORTED_MODULE_2__.context.eventName === 'pull_request_review'
+        ) {
           octokit.request(
-            "POST /repos/{owner}/{repo}/issues/{issue_number}/comments",
+            'POST /repos/{owner}/{repo}/issues/{issue_number}/comments',
             {
               issue_number: _actions_github__WEBPACK_IMPORTED_MODULE_2__.context.issue.number,
               owner: _actions_github__WEBPACK_IMPORTED_MODULE_2__.context.repo.owner,
               repo: _actions_github__WEBPACK_IMPORTED_MODULE_2__.context.repo.repo,
               body: `![](${imageUrl})`,
-            }
+            },
           );
-        } else if (_actions_github__WEBPACK_IMPORTED_MODULE_2__.context.eventName === "pull_request_review_comment") {
+        } else if (_actions_github__WEBPACK_IMPORTED_MODULE_2__.context.eventName === 'pull_request_review_comment') {
           octokit.request(
-            "POST /repos/{owner}/{repo}/pulls/{pull_number}/comments/{comment_id}/replies",
+            'POST /repos/{owner}/{repo}/pulls/{pull_number}/comments/{comment_id}/replies',
             {
               owner: _actions_github__WEBPACK_IMPORTED_MODULE_2__.context.repo.owner,
               repo: _actions_github__WEBPACK_IMPORTED_MODULE_2__.context.repo.repo,
               body: `![](${imageUrl})`,
               pull_number: _actions_github__WEBPACK_IMPORTED_MODULE_2__.context.payload.pull_request.number,
               comment_id: _actions_github__WEBPACK_IMPORTED_MODULE_2__.context.payload.comment.id,
-            }
+            },
           );
         }
       });
