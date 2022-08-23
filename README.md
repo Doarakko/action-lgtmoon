@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: LGTM
-        uses: Doarakko/action-lgtmoon/@v1.2
+        uses: Doarakko/action-lgtmoon/@v1.3
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
 ```
