@@ -9,7 +9,7 @@ async function run() {
     const githubToken = getInput('github-token');
     const octokit = new Octokit({ auth: githubToken });
 
-    if (!(context.payload.comment.body || '').match(/lgtm/)) {
+    if (!(context.payload.comment.body || '').toLowerCase().match(/lgtm/)) {
       core.debug('nothing to do.');
       return;
     }
