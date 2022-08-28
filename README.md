@@ -32,10 +32,6 @@ jobs:
           github-token: ${{secrets.GITHUB_TOKEN}}
 ```
 
-## Demo
-
-Please comment or review "lgtm" to [this issue](https://github.com/Doarakko/action-lgtmoon/issues/1) and [this pull request](https://github.com/Doarakko/action-lgtmoon/pull/2)!
-
-# Credit
+## Credit
 
 - [LGTMoon](https://lgtmoon.dev/)
