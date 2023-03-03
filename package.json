@@ -22,7 +22,7 @@
   "homepage": "https://github.com/Doarakko/action-lgtmoon#readme",
   "dependencies": {
     "@actions/core": "^1.2.6",
-    "@actions/github": "^4.0.0",
+    "@actions/github": "^5.1.1",
     "@octokit/core": "^3.2.5",
     "node-fetch": "^2.6.1"
   },
