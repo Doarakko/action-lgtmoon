@@ -1,5 +1,5 @@
-name: "LGTMoon on GitHub Issue and Pull request"
-description: "Post LGTM image on GitHub Issue and Pull request using LGTMoon."
+name: 'LGTMoon on GitHub Issue and Pull request'
+description: 'Post LGTM image on GitHub Issue and Pull request using LGTMoon.'
 branding:
   icon: moon
   color: gray-dark
@@ -9,5 +9,5 @@ inputs:
     default: ${{ github.token }}
     required: true
 runs:
-  using: "node12"
-  main: "dist/index.js"
+  using: 'node16'
+  main: 'dist/index.js'
