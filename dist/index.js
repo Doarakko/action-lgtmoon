@@ -25,7 +25,13 @@ async function run() {
     const githubToken = (0,_actions_core__WEBPACK_IMPORTED_MODULE_1__.getInput)('github-token');
     const octokit = new _octokit_core__WEBPACK_IMPORTED_MODULE_3__.Octokit({ auth: githubToken });
 
-    if (!(_actions_github__WEBPACK_IMPORTED_MODULE_2__.context.payload.comment.body || '').toLowerCase().match(/lgtm/)) {
+    const comment = _actions_github__WEBPACK_IMPORTED_MODULE_2__.context.payload.comment || _actions_github__WEBPACK_IMPORTED_MODULE_2__.context.payload.review;
+    if (!comment) {
+      _actions_core__WEBPACK_IMPORTED_MODULE_1__.debug('No comment or review body found.');
+      return;
+    }
+
+    if (!(comment.body || '').toLowerCase().match(/lgtm/)) {
       _actions_core__WEBPACK_IMPORTED_MODULE_1__.debug('nothing to do.');
       return;
     }

@@ -9,7 +9,13 @@ async function run() {
     const githubToken = getInput('github-token');
     const octokit = new Octokit({ auth: githubToken });
 
-    if (!(context.payload.comment.body || '').toLowerCase().match(/lgtm/)) {
+    const comment = context.payload.comment || context.payload.review;
+    if (!comment) {
+      core.debug('No comment or review body found.');
+      return;
+    }
+
+    if (!(comment.body || '').toLowerCase().match(/lgtm/)) {
       core.debug('nothing to do.');
       return;
     }
