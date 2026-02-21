@@ -5,9 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
-    "format": "prettier --write '**/*.js'",
-    "prepare": "ncc build index.js -o dist --source-map --license licenses.txt",
-    "all": "npm run lint && npm run format && npm run prepare"
+    "package": "ncc build index.js -o dist --source-map --license licenses.txt"
   },
   "repository": {
     "type": "git",
@@ -28,10 +26,7 @@
   },
   "devDependencies": {
     "@vercel/ncc": "^0.38.0",
-    "eslint": "^8.49.0",
+    "eslint": "^8.56.0",
     "prettier": "^3.0.3"
-  },
-  "volta": {
-    "node": "16.19.1"
   }
 }
