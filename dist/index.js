@@ -34320,9 +34320,6 @@ var __webpack_exports__ = {};
 // ESM COMPAT FLAG
 __nccwpck_require__.r(__webpack_exports__);
 
-// EXTERNAL MODULE: ./node_modules/node-fetch/lib/index.js
-var lib = __nccwpck_require__(467);
-var lib_default = /*#__PURE__*/__nccwpck_require__.n(lib);
 // EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
 var core = __nccwpck_require__(2186);
 // EXTERNAL MODULE: ./node_modules/@actions/github/lib/github.js
@@ -35547,6 +35544,9 @@ class Octokit {
 }
 
 
+// EXTERNAL MODULE: ./node_modules/node-fetch/lib/index.js
+var lib = __nccwpck_require__(467);
+var lib_default = /*#__PURE__*/__nccwpck_require__.n(lib);
 ;// CONCATENATED MODULE: ./index.js
 
 
