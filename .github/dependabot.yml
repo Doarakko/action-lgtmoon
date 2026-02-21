@@ -10,8 +10,7 @@ updates:
           - "@octokit/*"
       development:
         patterns:
-          - "eslint*"
-          - "prettier*"
+          - "@biomejs/*"
 
   - package-ecosystem: "github-actions"
     directory: "/"
